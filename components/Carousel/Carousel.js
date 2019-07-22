@@ -17,3 +17,63 @@
     <div class="right-button"> > </div>
   </div>
 */
+function createCarousel(){
+  // <div class="carousel">
+  const carousel = document.createElement('div');
+  carousel.classList.add('carousel');
+  //   <div class="left-button"> < </div>
+  const leftButton = document.createElement('div');
+  leftButton.classList.add('left-button');
+  carousel.appendChild(leftButton);
+  //   <img src="./assets/carousel/mountains.jpeg" />
+  const mountainsImg = document.createElement('img');
+  mountainsImg.src = './assets/carousel/mountains.jpeg';
+  carousel.appendChild(mountainsImg);
+  //   <img src="./assets/carousel/computer.jpeg" />
+  const computerImg = document.createElement('img');
+  computerImg.src = './assets/carousel/computer.jpeg';
+  carousel.appendChild(computerImg);
+  //   <img src="./assets/carousel/trees.jpeg" />
+  const treesImg = document.createElement('img');
+  treesImg.src = './assets/carousel/trees.jpeg';
+  carousel.appendChild(treesImg);
+  //   <img src="./assets/carousel/turntable.jpeg" />
+  const turntableImg = document.createElement('img');
+  turntableImg.src = './assets/carousel/turntable.jpeg';
+  carousel.appendChild(turntableImg); 
+  //   <div class="right-button"> > </div>
+  const rightButton = document.createElement('div');
+  rightButton.classList.add('right-button');
+  carousel.appendChild(rightButton);
+
+  var items = carousel.querySelectorAll('img');
+  console.log(items);
+  var counter = 0;
+  var amount = items.length;
+  var current = items[0];
+  function navigate(direction) {
+    current.style.display = 'none';
+    counter = counter + direction;
+    if (direction === -1 && 
+        counter < 0) { 
+      counter = amount - 1; 
+    }
+    if (direction === 1 && 
+        !items[counter]) { 
+      counter = 0;
+    }
+    current = items[counter];
+    current.style.display = 'block';
+  }
+  rightButton.addEventListener('click', function(ev) {
+    navigate(1);
+  });
+  leftButton.addEventListener('click', function(ev) {
+    navigate(-1);
+  });
+  navigate(0);
+  return carousel;
+}
+const carouselContainer = document.querySelector('.carousel-container');
+const callCarousel = createCarousel();
+carouselContainer.appendChild(callCarousel);
